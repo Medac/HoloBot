@@ -52,48 +52,92 @@ client.on("message", (message) => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  if (command === 'ping') {
-    message.channel.send("pong!");
-  } else
-  if (command === 'blah') {
-    message.channel.send('meh');
-  }
-
+  // Skeleton multiple arguments
   if (command === "asl") {
     let [age, sex, location] = args;
     message.reply(`Hello ${message.author.username}, I see you're a ${age} year old ${sex} from ${location}. Wanna date?`);
   }
 
   // Kick a single user in the mention
-  if (command === "banana") {
+  if (command === "banana" & message.author.id == config.ownerID) {
     let member = message.mentions.members.first();
     member.kick();
+    message.channel.send('Yeah, fuck that guy');
+  } else if (command === "banana" & message.author.id !== config.ownerID) {
+    message.channel.send('As if I would ever listen to you');
   }
 
-  if(command === "say"){
+  // Custom bot message
+  if (command === "say" & message.author.id == config.ownerID) {
     let text = args.join(" ");
     message.delete();
     message.channel.send(text);
+  } else if (command === "say" & message.author.id !== config.ownerID) {
+    message.channel.send('As if I would ever listen to you');
   }
 
-  if(command === 'embed') {
-    message.channel.send({embed: {
-      color: 3447003,
-      description: "A very simple Embed!"
-    }});
+  // ID lookup
+  if (command === "id") {
+    message.channel.send(`Your userID is ${message.author.id}`);
+    message.channel.send(`The OwnerID is ${config.ownerID}`);
+    message.channel.send(`The prefix is ${config.prefix}`)
   }
 
-  if(command === 'embed2') {
-    message.channel.send({embed: {
-      color: 3447003,
-      author: {
-        name: client.user.username,
-        icon_url: client.user.avatarURL
-      },
-      title: "This is an embed",
-      url: "http://google.com",
-      description: "This is a test embed to showcase what they look like and what they can do.",
-      fields: [{
+  // Contingency for waifu claim
+  if (message.content === "w!claim Holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'w!claim Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "W!claim Holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'W!claim Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "w!claim holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'w!claim holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "W!claim holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'W!claim holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  // Undeveloped help command
+  if (command === "help") {
+    message.channel.send('Look man, You really think I am far enough into this thing to have a fleshed out help command? I can barely help myself let alone others');
+  }
+
+
+  //Embed skeletons
+  if (command === 'embed' & message.author.id == config.ownerID) {
+    message.channel.send({
+      embed: {
+        color: 3447003,
+        description: "A very simple Embed!"
+      }
+    });
+  } else if (command === 'embed' & message.author.id !== config.ownerID) {
+    message.channel.send('As if I would ever listen to you');
+  }
+
+  if (command === 'embed2' & message.author.id == config.ownerID) {
+    message.channel.send({
+      embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "This is an embed",
+        url: "http://google.com",
+        description: "This is a test embed to showcase what they look like and what they can do.",
+        fields: [{
           name: "Fields",
           value: "They can have different fields with small headlines."
         },
@@ -105,51 +149,57 @@ client.on("message", (message) => {
           name: "Markdown",
           value: "You can put all the *usual* **__Markdown__** inside of them."
         }
-      ],
-      timestamp: new Date(),
-      footer: {
-        icon_url: client.user.avatarURL,
-        text: "© Example"
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "© Example"
+        }
       }
-    }});
+    });
+  } else if (command === 'embed2' & message.author.id !== config.ownerID) {
+    message.channel.send('As if I would ever listen to you');
   }
 
-  if(command === 'embed3') {
+  if (command === 'embed3' & message.author.id == config.ownerID) {
     const embed = new Discord.RichEmbed()
-  .setTitle("This is your title, it can hold 256 characters")
-  .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
-  /*
-   * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
-   */
-  .setColor(0x00AE86)
-  .setDescription("This is the main body of text, it can hold 2048 characters.")
-  .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
-  .setImage("http://i.imgur.com/yVpymuV.png")
-  .setThumbnail("http://i.imgur.com/p2qNFag.png")
-  /*
-   * Takes a Date object, defaults to current date.
-   */
-  .setTimestamp()
-  .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
-  .addField("This is a field title, it can hold 256 characters",
-    "This is a field value, it can hold 1024 characters.")
-  /*
-   * Inline fields may not display as inline if the thumbnail and/or image is too big.
-   */
-  .addField("Inline Field", "They can also be inline.", true)
-  /*
-   * Blank field, useful to create some space.
-   */
-  .addBlankField(true)
-  .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
- 
-  message.channel.send({embed});
+      .setTitle("This is your title, it can hold 256 characters")
+      .setAuthor("Author Name", "https://i.imgur.com/lm8s41J.png")
+      /*
+       * Alternatively, use "#00AE86", [0, 174, 134] or an integer number.
+       */
+      .setColor(0x00AE86)
+      .setDescription("This is the main body of text, it can hold 2048 characters.")
+      .setFooter("This is the footer text, it can hold 2048 characters", "http://i.imgur.com/w1vhFSR.png")
+      .setImage("http://i.imgur.com/yVpymuV.png")
+      .setThumbnail("http://i.imgur.com/p2qNFag.png")
+      /*
+       * Takes a Date object, defaults to current date.
+       */
+      .setTimestamp()
+      .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
+      .addField("This is a field title, it can hold 256 characters",
+        "This is a field value, it can hold 1024 characters.")
+      /*
+       * Inline fields may not display as inline if the thumbnail and/or image is too big.
+       */
+      .addField("Inline Field", "They can also be inline.", true)
+      /*
+       * Blank field, useful to create some space.
+       */
+      .addBlankField(true)
+      .addField("Inline Field 3", "You can have a maximum of 25 fields.", true);
+
+    message.channel.send({ embed });
+  } else if (command === 'embed3' & message.author.id !== config.ownerID) {
+    message.channel.send('As if I would ever listen to you');
   }
 
 });
 
+// New Event - New member
 client.on("guildMemberAdd", (member) => {
-  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
+  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);
   member.guild.channels.get("welcome").send(`"${member.user.username}" has joined this server`);
 });
 
