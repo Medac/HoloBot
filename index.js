@@ -20,13 +20,53 @@ client.on('ready', () => {
 
 //Commands text based
 client.on('message', (message) => {
+  if (message.author.bot) return;
+
+
   if (message.content.startsWith('OwO')) {
     message.channel.send('Fuck you stop OwOing');
-  } else
+  }
 
-    if (message.content.startsWith('w!claim Holo')) {
-      message.channel.send('I cannot believe you have done this. Return me to Cade immediately.');
-    }
+  if (message.content === 'gottem') {
+    message.channel.send('gottem');
+  }
+
+  if (message.content === 'Good night Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Good night! Sweet dreams! See you in the morning.');
+  } else if (message.content === 'Good night Holo' & message.author.id !== config.ownerID) {
+    message.channel.send('Peace')
+  }
+
+  if (message.content === 'Good morning Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Good morning! Be productive and have a good day!');
+  } else if (message.content === 'Good night Holo' & message.author.id !== config.ownerID) {
+    message.channel.send(`A fine morning indeed ${message.author.username}`)
+  }
+
+  // Contingency for waifu claim
+  if (message.content === "w!claim Holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'w!claim Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "W!claim Holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'W!claim Holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "w!claim holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'w!claim holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
+
+  if (message.content === "W!claim holo" & message.author.id !== config.ownerID) {
+    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
+  } else if (message.content === 'W!claim holo' & message.author.id == config.ownerID) {
+    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+  }
 });
 
 // Before command variable
@@ -50,6 +90,7 @@ client.on("message", (message) => {
   if (message.content.indexOf(config.prefix) !== 0) return
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+  let argresult = args.join(' ');
   const command = args.shift().toLowerCase();
 
   // Skeleton multiple arguments
@@ -83,34 +124,13 @@ client.on("message", (message) => {
     message.channel.send(`The prefix is ${config.prefix}`)
   }
 
-  // Contingency for waifu claim
-  if (message.content === "w!claim Holo" & message.author.id !== config.ownerID) {
-    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
-  } else if (message.content === 'w!claim Holo' & message.author.id == config.ownerID) {
-    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
-  }
-
-  if (message.content === "W!claim Holo" & message.author.id !== config.ownerID) {
-    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
-  } else if (message.content === 'W!claim Holo' & message.author.id == config.ownerID) {
-    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
-  }
-
-  if (message.content === "w!claim holo" & message.author.id !== config.ownerID) {
-    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
-  } else if (message.content === 'w!claim holo' & message.author.id == config.ownerID) {
-    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
-  }
-
-  if (message.content === "W!claim holo" & message.author.id !== config.ownerID) {
-    message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
-  } else if (message.content === 'W!claim holo' & message.author.id == config.ownerID) {
-    message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
-  }
-
   // Undeveloped help command
   if (command === "help") {
     message.channel.send('Look man, You really think I am far enough into this thing to have a fleshed out help command? I can barely help myself let alone others');
+  }
+
+  if (command === "trash") {
+    message.channel.send(`Are you sure you want to delete all ${message.author.username}\'s waifus? Y/N`);
   }
 
 
@@ -195,12 +215,16 @@ client.on("message", (message) => {
     message.channel.send('As if I would ever listen to you');
   }
 
+  if (command === 'setgame' & message.author.id == config.ownerID) {
+    client.user.setActivity(argresult);
+  }
+
 });
 
 // New Event - New member
 client.on("guildMemberAdd", (member) => {
-  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);
-  member.guild.channels.get("welcome").send(`"${member.user.username}" has joined this server`);
+  let guild = member.guild;
+  guild.defaultChannel.send('Welcome to The Shithole. It\'s what it sounds like.')
 });
 
 client.login(config.token);
