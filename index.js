@@ -110,6 +110,12 @@ client.on("message", (message) => {
     message.channel.send(`You have grabbed ${member}`);
   }
 
+  if (command === "botinfo") {
+    message.channel.send(`The owner ID is ${config.ownerID}`);
+    message.channel.send(`Your ID is ${message.author.id}`);
+    message.channel.send(`The bot prefix is ${config.prefix}`);
+  }
+
   // Custom bot message
   if (command === "say" & message.author.id == config.ownerID) {
     let text = args.join(" ");
