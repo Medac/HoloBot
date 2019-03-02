@@ -3,9 +3,6 @@ const client = new Discord.Client();
 const config = require("./config.json");
 
 
-
-
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -39,7 +36,7 @@ client.on('message', (message) => {
 
   if (message.content === 'Good morning Holo' & message.author.id == config.ownerID) {
     message.channel.send('Good morning! Be productive and have a good day!');
-  } else if (message.content === 'Good night Holo' & message.author.id !== config.ownerID) {
+  } else if (message.content === 'Good morning Holo' & message.author.id !== config.ownerID) {
     message.channel.send(`A fine morning indeed ${message.author.username}`)
   }
 
@@ -90,7 +87,6 @@ client.on("message", (message) => {
   if (message.content.indexOf(config.prefix) !== 0) return
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  let argresult = args.join(' ');
   const command = args.shift().toLowerCase();
 
   // Skeleton multiple arguments
@@ -100,12 +96,18 @@ client.on("message", (message) => {
   }
 
   // Kick a single user in the mention
-  if (command === "banana" & message.author.id == config.ownerID) {
+  if (command === "kick" & message.author.id == config.ownerID) {
     let member = message.mentions.members.first();
-    member.kick();
+    let reason = args.slice(1).join(" ");
+    member.kick(reason);
     message.channel.send('Yeah, fuck that guy');
   } else if (command === "banana" & message.author.id !== config.ownerID) {
     message.channel.send('As if I would ever listen to you');
+  }
+
+  if (command === "grab") {
+    let member = message.mentions.members.first();
+    message.channel.send(`You have grabbed ${member}`);
   }
 
   // Custom bot message
@@ -115,13 +117,6 @@ client.on("message", (message) => {
     message.channel.send(text);
   } else if (command === "say" & message.author.id !== config.ownerID) {
     message.channel.send('As if I would ever listen to you');
-  }
-
-  // ID lookup
-  if (command === "id") {
-    message.channel.send(`Your userID is ${message.author.id}`);
-    message.channel.send(`The OwnerID is ${config.ownerID}`);
-    message.channel.send(`The prefix is ${config.prefix}`)
   }
 
   // Undeveloped help command
