@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const config = require("./config.json");
 const rquote = require("./quotes.json");
 const random = Math.floor((Math.random() * 5) + 1);
-var entries = rquote.quotes
+var entries = rquote.quotes[0];
 var randomEntries = Object.keys(entries)[Math.floor(Math.random() * entries.length)];
 
 
@@ -70,14 +70,10 @@ client.on('message', (message) => {
 // After command Variable
 client.on("message", (message) => {
   if (message.author.bot) return;
-  // if (message.content.indexOf(config.prefix | config.prefix2 | config.prefix3) !== 0) return
+  if (message.content.indexOf(config.prefix) !== 0) return
 
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-  const args2 = message.content.slice(config.prefix2.length).trim().split(/ +/g);
-  const args3 = message.content.slice(config.prefix3.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-  const command2 = args2.shift().toLowerCase();
-  const command3 = args3.shift().toLowerCase();
 
   // Skeleton multiple arguments
   if (command === "asl") {
@@ -124,7 +120,7 @@ client.on("message", (message) => {
                 message.channel.send('Look man, You really think I am far enough into this thing to have a fleshed out help command? I can barely help myself let alone others');
               } else
 
-                if (command3 === "sayhi") {
+                if (command === "sayhi") {
                   message.channel.send('Hi everyone');
                 } else
 
