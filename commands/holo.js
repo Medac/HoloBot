@@ -2,8 +2,6 @@ const { Discord, RichEmbed } = require("discord.js")
 const fs = require('fs')
 const imgur = require("../imgur.json")
 
-//This one does random embed with pictures and description
-//requires imageURL and quote to be put together in switch
 
 module.exports.run = async (bot, message, args) => {
   let data = fs.readFileSync('imgur.txt', 'utf8').toString().split("\n");
@@ -15,6 +13,7 @@ module.exports.run = async (bot, message, args) => {
     .setImage(`https://i.imgur.com/${data[quoteNumber]}`)
     .setColor('#FF4500')
 
+  console.log(data[quoteNumber]);
   message.channel.send(embed);
 }
 
