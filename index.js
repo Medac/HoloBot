@@ -145,14 +145,14 @@ client.on("message", async message => {
 //   } else
 
 //     // Kick a single user in the mention
-//     if (command === "kick" & message.author.id == config.ownerID) {
-//       let member = message.mentions.members.first();
-//       let reason = args.slice(1).join(" ");
-//       member.kick(reason);
-//       message.channel.send('Yeah, fuck that guy');
-//     } else if (command === "kick" & message.author.id !== config.ownerID) {
-//       message.channel.send('As if I would ever listen to you');
-//     } else
+// if (command === "kick" & message.author.id == config.ownerID) {
+//   let member = message.mentions.members.first();
+//   let reason = args.slice(1).join(" ");
+//   member.kick(reason);
+//   message.channel.send('Yeah, fuck that guy');
+// } else if (command === "kick" & message.author.id !== config.ownerID) {
+//   message.channel.send('As if I would ever listen to you');
+// } else
 
 //       if (command === "grab") {
 //         let member = message.mentions.members.first();
@@ -277,7 +277,7 @@ client.on("message", async message => {
 //                             .setTimestamp()
 //                           message.channel.send({ embed });
 //                         } else
-// 
+// // 
 //                           if (command === 'setgame' & message.author.id == config.ownerID) {
 //                             client.user.setActivity(argresult);
 //                           }
