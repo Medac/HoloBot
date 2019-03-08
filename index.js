@@ -69,7 +69,7 @@ client.on("message", async message => {
           if (message.content.toLowerCase() === "w!claim holo" & message.author.id !== config.ownerID) {
             message.channel.send('I cannot believe you have done this. Please return me to Cade immediately');
           } else if (message.content.toLowerCase() === 'w!claim holo' & message.author.id == config.ownerID) {
-            message.channel.send('Thanks goodness. I would not stand being able to travel with these other fools')
+            message.channel.send('Thanks goodness. I could not stand being forced to travel with these other fools')
           }
 
   //removes all non-prefix messages
