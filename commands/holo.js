@@ -1,6 +1,6 @@
 const { Discord, RichEmbed } = require("discord.js")
 const fs = require('fs')
-const imgur = require("../imgur.json")
+
 
 
 module.exports.run = async (bot, message, args) => {

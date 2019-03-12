@@ -4,11 +4,6 @@ const config = require("./config.json");
 const fs = require("fs");
 
 
-// const rquote = require("./quotes.json");
-// const random = Math.floor((Math.random() * 5) + 1);
-// var entries = rquote.quotes[0];
-// var randomEntries = Object.keys(entries)[Math.floor(Math.random() * entries.length)];
-
 const bot = new Discord.Client({ disableEveryone: true })
 bot.commands = new Discord.Collection();
 
